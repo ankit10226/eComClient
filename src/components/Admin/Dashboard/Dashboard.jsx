@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { toggleAjaxLoader } from '../../../redux/slices/AjaxLoaderSlice';
 import api from '../../../utils/api/api';
 import DashboardDetails from './DashboardDetails';
+import { fetchDashboards } from '../../../redux/slices/DashboardSlice';
 
 const initialFormData = { 
 }
@@ -82,6 +83,7 @@ const Dashboard = () => {
       if (response.status === 200) {
         setFileName('');
         dispatch(showModal({type:'success',message:response.data?.message}));
+        dispatch(fetchDashboards());
       }
     } catch (error) {
       dispatch(showModal({type:'error',message:error.response?.data?.message || error.message}))
