@@ -142,8 +142,8 @@ const AddProductModal = () => {
       setError(initialError);
       setImageUrl('');
     }
-    if(modalType === 'editModal' && editModalId){
-      const editProductDetails = products.find(value => value._id === editModalId); 
+    if(modalType === 'editModal' && editModalId){ 
+      const editProductDetails = products.find(value => value.id == editModalId); 
       if (editProductDetails) { 
         setFormData({
           title: editProductDetails.title || '',
@@ -185,7 +185,7 @@ const AddProductModal = () => {
         { (!imageUrl && error.imageUrlError) && <p className='text-red-400 font-light text-sm'>{`Please upload product image!`}</p>}
         {(imageUrl && modalType === 'addModal') && (
           <div className="mb-4 flex justify-center">
-            <img src={imageUrl} alt="Uploaded" className="w-1/4 h-auto rounded shadow" />
+            <img src={`${import.meta.env.VITE_API_URL.replace('/api', '')}${imageUrl}`} alt="Uploaded" className="w-1/4 h-auto rounded shadow" />
           </div>
         )}
         <Select

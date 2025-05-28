@@ -11,7 +11,7 @@ const ProductDetails = () => {
   const {products} = useSelector((state)=>state.product);
 
   const handleEditForm = (e) =>{
-    const productId = e.target.id; 
+    const productId = e.target.id;  
     dispatch(toggleProductModal({type:'editModal',id:productId}));
   };
 
@@ -42,11 +42,11 @@ const ProductDetails = () => {
     <> 
       <div className="w-full p-2 grid lg:grid-cols-2 gap-4 md:grid-cols-1">
         {products.map((value) => (
-          <div key={value._id} className='shadow-lg rounded-lg border-1 border-gray-300 hover:border-gray-400 hover:transition ease-linear text-teal-900'>
+          <div key={value.id} className='shadow-lg rounded-lg border-1 border-gray-300 hover:border-gray-400 hover:transition ease-linear text-teal-900'>
           <div className="flex h-50" >
             <div className="w-1/3 overflow-hidden rounded-lg flex justify-center items-center">
               <img
-                src={value.image}
+                src={`${import.meta.env.VITE_API_URL.replace('/api', '')}${value.image}`}
                 alt={`${value.title} image`}
                 className="w-full h-auto transition-transform duration-300 ease-linear hover:scale-110"
               />
@@ -83,8 +83,8 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className='flex justify-start items-center p-2 border-t-1 border-teal-200'>
-            <Button type="button" className="bg-teal-500 text-white mx-2" id={value._id} onClick={handleEditForm}>Edit</Button>
-            <Button type="button" className="bg-teal-900 text-white" id={value._id} onClick={handleDeleteProduct}>Delete</Button>
+            <Button type="button" className="bg-teal-500 text-white mx-2" id={value.id} onClick={handleEditForm}>Edit</Button>
+            <Button type="button" className="bg-teal-900 text-white" id={value.id} onClick={handleDeleteProduct}>Delete</Button>
           </div>
         </div>
         ))}

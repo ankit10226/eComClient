@@ -9,7 +9,7 @@ import api from "../../../../utils/api/api";
 const AddressDetail = () => {
   const dispatch = useDispatch();
   const { address } = useSelector((state) => state.address);
-  const { user } = useSelector((state)=>state.auth); 
+  const { user } = useSelector((state)=>state.auth);  
 
   const handleEditForm = (e) => {
     const addressId = e.target.id;
@@ -27,7 +27,7 @@ const AddressDetail = () => {
           dispatch(
             showModal({ type: "success", message: response.data?.message })
           );
-          dispatch(fetchAddress(user.id));
+          dispatch(fetchAddress(user.userId));
         }
       } catch (error) {
         dispatch(
@@ -59,7 +59,7 @@ const AddressDetail = () => {
   return (
     <div className="grid lg:grid-cols-3 gap-4 md:grid-cols-2 sm:grid-cols-1">
       {address.map((value) => (
-        <div className="border border-gray-300 rounded-md p-2 cursor-pointer hover:border-gray-400 text-cyan-900 flex flex-col h-full" key={value._id}>
+        <div className="border border-gray-300 rounded-md p-2 cursor-pointer hover:border-gray-400 text-cyan-900 flex flex-col h-full" key={value.id}>
             <div className="flex gap-4">
             <ul>
                 <li><b>Address</b></li>
@@ -82,8 +82,8 @@ const AddressDetail = () => {
             </ul>
             </div>
             <div className="flex justify-start items-center p-2 border-t border-teal-200 mt-auto">
-                <Button type="button" className="bg-teal-500 text-white mx-2" id={value._id} onClick={handleEditForm}>Edit</Button>
-                <Button type="button" className="bg-red-400 text-white" id={value._id} onClick={handleDeleteProduct}>Delete</Button>
+                <Button type="button" className="bg-teal-500 text-white mx-2" id={value.id} onClick={handleEditForm}>Edit</Button>
+                <Button type="button" className="bg-red-400 text-white" id={value.id} onClick={handleDeleteProduct}>Delete</Button>
             </div>
         </div>
       ))} 

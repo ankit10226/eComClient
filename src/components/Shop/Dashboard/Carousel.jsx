@@ -33,7 +33,7 @@ const Carousel = () => {
     {dashboards.length > 0 && (
       <>
         <img
-          src={dashboards[currentIndex].image}
+          src={`${import.meta.env.VITE_API_URL.replace('/api', '')}${dashboards[currentIndex].image}`}
           alt={`Dashboard ${currentIndex}`}
           className='h-full w-full object-cover transition-all duration-500 ease-in-out'
         />

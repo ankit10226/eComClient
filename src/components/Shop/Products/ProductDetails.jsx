@@ -23,9 +23,9 @@ const ProductDetails = () => {
 
   const handleAddToCart = (e) =>{
     const id = e.target.id;
-    const product = products.find((item)=> item._id === id);
+    const product = products.find((item)=> item.id == id);
     
-    let itemPresent = cartItems.find((item)=> item._id === id);
+    let itemPresent = cartItems.find((item)=> item.id == id);
     if(itemPresent){ 
       dispatch(showModal({type:'alert',message:'Item is already added to cart.'}));
     }else{ 
@@ -65,7 +65,7 @@ const ProductDetails = () => {
             <div className="">
               <div className="h-74 overflow-hidden rounded-lg flex justify-center items-center mb-6 cursor-pointer">
                 <img
-                  src={value.image}
+                  src={`${import.meta.env.VITE_API_URL.replace('/api', '')}${value.image}`}
                   alt={`${value.title} image`}
                   id={value._id}
                   className={`w-full h-auto transition-transform duration-300 ease-linear hover:scale-110 ${value.quantity === 0 ? 'grayscale' : ''}`}
@@ -87,7 +87,7 @@ const ProductDetails = () => {
                 <p className="font-semibold text-teal-700">
                    &#8377;{value.price}
                 </p>
-                <Button type="button" className={`text-white w-full my-2 ${value.quantity === 0 ? 'bg-gray-500' : 'bg-teal-900'}`} id={value._id} onClick={handleAddToCart} disabled={value.quantity === 0}>
+                <Button type="button" className={`text-white w-full my-2 ${value.quantity === 0 ? 'bg-gray-500' : 'bg-teal-900'}`} id={value.id} onClick={handleAddToCart} disabled={value.quantity === 0}>
                   {value.quantity === 0 ? "Out of Stock" : "Add To Cart"}
                 </Button> 
               </div>

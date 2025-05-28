@@ -28,8 +28,7 @@ const initialError = {
 const AddAddressModal = () => {
   const dispatch = useDispatch();
   const {isAddressModalVisible,modalType,editModalId,address} = useSelector((state) => state.address);
-  const { user } = useSelector((state)=>state.auth); 
-
+  const { user } = useSelector((state)=>state.auth);   
 
   const [formData,setFormData] = useState(initialFormData);
   const [error,setError] = useState(initialError);
@@ -65,7 +64,7 @@ const AddAddressModal = () => {
       const payload = {
         ...formData,
         userId: user.userId,
-      };  
+      };   
       const endpoint =
         modalType === "editModal"
           ? `/shop/update/address/${editModalId}`
@@ -98,7 +97,7 @@ const AddAddressModal = () => {
       setError(initialError); 
     }
     if(modalType === 'editModal' && editModalId){
-      const editAddressDetails = address.find(value => value._id === editModalId); 
+      const editAddressDetails = address.find(value => value.id == editModalId); 
       if (editAddressDetails) { 
         setFormData({
           address: editAddressDetails.address || '',

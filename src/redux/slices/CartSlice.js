@@ -25,27 +25,27 @@ export const cartSlice = createSlice({
     setTotalAmount : (state,action) => {  
       const {type,value} = action.payload;
       if(type === 'empty'){
-        state.totalAmount = value;
+        state.totalAmount = parseFloat(value);
       }else{
-        state.totalAmount += value;
+        state.totalAmount += parseFloat(value);
       }
     }, 
     updateCartQty: (state, action) => {
       const { id, type } = action.payload;
-      const itemIndex = state.cartItems.findIndex((item) => item._id === id);
+      const itemIndex = state.cartItems.findIndex((item) => item.id == id);
 
       if (itemIndex !== -1) {
         if (type === "add") {
           state.cartItems[itemIndex].cartQty += 1;
-          state.totalAmount += state.cartItems[itemIndex].price;
+          state.totalAmount += parseFloat(state.cartItems[itemIndex].price);
         } else if (type === "minus") {
           if (state.cartItems[itemIndex].cartQty > 1) {
             state.cartItems[itemIndex].cartQty -= 1;
-            state.totalAmount -= state.cartItems[itemIndex].price;
+            state.totalAmount -= parseFloat(state.cartItems[itemIndex].price);
           } else { 
             const isConfirm = confirm('Are you sure? Item will be removed from cart.');
             if(isConfirm){
-              state.totalAmount -= state.cartItems[itemIndex].price;
+              state.totalAmount -= parseFloat(state.cartItems[itemIndex].price);
               state.cartItems.splice(itemIndex, 1);
             }
           }
@@ -54,7 +54,7 @@ export const cartSlice = createSlice({
     },
     deleteCartItem : (state,action) => {
       const {id} = action.payload;
-      const itemIndex = state.cartItems.findIndex((item) => item._id === id);
+      const itemIndex = state.cartItems.findIndex((item) => item.id == id);
       if (itemIndex !== -1) {
         const isConfirm = confirm('Are you sure? Item will be removed from cart.'); 
         if(isConfirm){ 
