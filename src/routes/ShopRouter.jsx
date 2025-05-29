@@ -7,7 +7,7 @@ import ShopDashboard from "../pages/Shop/Dashboard/ShopDashboard";
 import Dashboard from "../components/Shop/Dashboard/Dashboard";
 import Products from "../components/Shop/Products/Products";
 import Profile from "../components/Shop/Profile/Profile"; 
-import Orders from "../components/Shop/Profile/Orders";
+import Orders from "../components/Shop/Profile/Order/Orders";
 import Address from "../components/Shop/Profile/Address/Address";
 
 const ShopRouter = () => {

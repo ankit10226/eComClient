@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { fetchFilteredProducts } from "../../../redux/slices/ProductSlice";
 import Button from "../../UI/Button/Button"
-import { setCartItem, setTotalAmount } from "../../../redux/slices/CartSlice";
+import { setCartItem } from "../../../redux/slices/CartSlice";
 import { showModal } from "../../../redux/slices/ModalSlice";
 
 const ProductDetails = () => {
@@ -34,8 +34,7 @@ const ProductDetails = () => {
         ...cartItems,
         newItem
       ] 
-      dispatch(setCartItem(payload));
-      dispatch(setTotalAmount({type:'new',value:product.price}));
+      dispatch(setCartItem(payload)); 
       dispatch(showModal({ type: "success", message: "Item added to cart." }));
     }
   }

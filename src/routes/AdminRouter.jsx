@@ -5,6 +5,7 @@ import Loading from '../components/UI/Loading/Loading';
 import NotFound from '../pages/NotFound/NotFound';
 import Dashboard from '../components/Admin/Dashboard/Dashboard';
 import Products from '../components/Admin/Products/Products';
+import Orders from '../components/Admin/Orders/Orders';
 
 const AdminRouter = () => {
   const router = createBrowserRouter([
@@ -15,6 +16,7 @@ const AdminRouter = () => {
         {index:true,element:<Dashboard />},
         {path:'dashboard',element:<Dashboard />},
         {path:'products',element:<Products />},
+        {path:'orders',element:<Orders />},
       ]
     },
     {

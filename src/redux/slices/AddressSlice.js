@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toggleAjaxLoader } from "./AjaxLoaderSlice";
 import api from "../../utils/api/api";
-import { showModal } from "./ModalSlice";
-import { useSelector } from "react-redux";
+import { showModal } from "./ModalSlice"; 
 
 const initialState = {
   isAddressModalVisible: false,

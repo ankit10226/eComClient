@@ -51,4 +51,16 @@ const brandList = [
   }
 ]
 
-export  {categoryList,subCategoryList,brandList}
+const statusList = [
+  { id: 'pending', name: 'Pending' },
+  { id: 'confirmed', name: 'Confirmed' },
+  { id: 'processing', name: 'Processing' },
+  { id: 'shipped', name: 'Shipped' },
+  { id: 'delivered', name: 'Delivered' },
+  { id: 'cancelled', name: 'Cancelled' },
+  { id: 'returned', name: 'Returned' },
+  { id: 'refunded', name: 'Refunded' },
+];
+
+
+export  {categoryList,subCategoryList,brandList,statusList}

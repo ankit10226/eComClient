@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCartItem, toggleShoppingCartModal, updateCartQty } from "../../../redux/slices/CartSlice";
+import { clearCart, deleteCartItem, selectCartTotalAmount, toggleShoppingCartModal, updateCartQty } from "../../../redux/slices/CartSlice";
 import Button from "../../UI/Button/Button";
 import { Trash2 } from "lucide-react";
 import { showModal } from "../../../redux/slices/ModalSlice";
 import Select from "../../UI/Select/Select";
 import { fetchAddress } from "../../../redux/slices/AddressSlice";
+import { toggleAjaxLoader } from "../../../redux/slices/AjaxLoaderSlice";
+import api from "../../../utils/api/api";
 
 const ShoppingCartDetail = () => {
   const dispatch = useDispatch();
-  const { totalAmount,cartItems } = useSelector((state)=>state.cart);
+  const { cartItems } = useSelector((state)=>state.cart);
+  const totalAmount = useSelector(selectCartTotalAmount);
+
   const { user } = useSelector((state)=>state.auth); 
   const { address } = useSelector((state) => state.address);  
 
@@ -33,16 +37,43 @@ const ShoppingCartDetail = () => {
       dispatch(showModal({ type: "alert", message: "Add atleast one address to place order." }));
       return;
     }
+    setNullAddress(false);
     setShowOrderTab((state)=>!state);
   }
 
-  const handleOrderSubmit = () =>{ 
-    if(!selectedAddress){
-      setNullAddress((state)=>!state);
+  const handleOrderSubmit = async () => {
+    if (!selectedAddress) {
+      setNullAddress(true);
       return;
     }
-    console.log(cartItems);
-  }
+
+    const payload = {
+      userId: user.userId,
+      addressId: selectedAddress,
+      totalAmount: totalAmount,
+      totalItems: cartItems.reduce((acc, item) => acc + item.cartQty, 0),
+      orderDetails: cartItems.map((item) => ({
+        productId: item.id,
+        quantity: item.cartQty,
+        price: item.price,      
+      }))
+    };
+
+    dispatch(toggleAjaxLoader());
+    try {
+      const response = await api.post("/user/place-order", payload);
+      if (response.status === 200) {
+        dispatch(showModal({ type: "success", message: "Order placed successfully!" }));
+        dispatch(clearCart());
+        dispatch(toggleShoppingCartModal()); 
+      }
+    } catch (error) { 
+      dispatch(showModal({ type: "error", message: error.response?.data?.message || error.message }));
+    }finally{
+      dispatch(toggleAjaxLoader());
+    }
+  };
+
    
   const addressOptions = address.map((addr) => ({
     id: addr.id,

@@ -17,7 +17,7 @@ const sidebarList = [
     id: 'Orders',
     name: 'Orders',
     logo: <ShoppingCart />,
-    navigate: '/admin/dashboard',
+    navigate: '/admin/orders',
   },
 ];
 
