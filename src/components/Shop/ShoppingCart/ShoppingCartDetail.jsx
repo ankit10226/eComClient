@@ -8,9 +8,12 @@ import Select from "../../UI/Select/Select";
 import { fetchAddress } from "../../../redux/slices/AddressSlice";
 import { toggleAjaxLoader } from "../../../redux/slices/AjaxLoaderSlice";
 import api from "../../../utils/api/api";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCartDetail = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { cartItems } = useSelector((state)=>state.cart);
   const totalAmount = useSelector(selectCartTotalAmount);
 
@@ -66,6 +69,7 @@ const ShoppingCartDetail = () => {
         dispatch(showModal({ type: "success", message: "Order placed successfully!" }));
         dispatch(clearCart());
         dispatch(toggleShoppingCartModal()); 
+        navigate("profile/orders",{ replace: true }); 
       }
     } catch (error) { 
       dispatch(showModal({ type: "error", message: error.response?.data?.message || error.message }));
